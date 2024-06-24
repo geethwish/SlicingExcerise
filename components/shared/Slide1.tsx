@@ -1,9 +1,13 @@
 // components/Slide1.tsx
-import React from "react";
+import React, { FC } from "react";
 import { Button } from "../ui/button";
 import { FaChevronDown } from "react-icons/fa";
 
-const Slide1 = () => {
+interface SlideProps {
+  onNavigate: () => void;
+}
+
+const Slide1: FC<SlideProps> = ({ onNavigate }) => {
   return (
     <div className="relative h-screen flex justify-center items-center text-center overflow-hidden">
       <video autoPlay loop muted className="fullscreen-video">
@@ -22,7 +26,11 @@ const Slide1 = () => {
           Quisque volutpat mattis eros.
         </p>
       </div>
-      <Button variant="link" className="absolute bottom-3">
+      <Button
+        variant="link"
+        className="absolute bottom-3"
+        onClick={() => onNavigate()}
+      >
         <FaChevronDown className="text-blue-950 hover:text-white down-arrow" />
       </Button>
     </div>

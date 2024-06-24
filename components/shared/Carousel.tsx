@@ -1,78 +1,106 @@
 "use client";
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { Button } from "../ui/button";
+import { FaChevronRight } from "react-icons/fa";
 
-const carouselData = [
+const items = [
   {
     id: 1,
-    text: "Lorem ipsum #1",
-    description: "Donec nec justo eget felis facilisis fermentum.",
+    title: "Lorem ipsum #1",
+    description:
+      "Donec nec justo eget felis facilisis fermentum. Aliquam porttitor mauris sit amet orci.",
   },
   {
     id: 2,
-    text: "Lorem ipsum #2",
-    description: "Aenean dignissim pellentesque felis sed egestas.",
+    title: "Lorem ipsum #2",
+    description:
+      "Aenean dignissim pellentesque felis sed egestas, ante et vulputate volutpat.",
   },
   {
     id: 3,
-    text: "Lorem ipsum #3",
-    description: "Eros pede semper est, vitae luctus metus libero.",
+    title: "Lorem ipsum #3",
+    description: "Eros pede semper est, vitae luctus metus libero eu augue.",
   },
   {
     id: 4,
-    text: "Lorem ipsum #4",
-    description: "Aliquam porttitor mauris sit amet orci.",
+    title: "Lorem ipsum #4",
+    description:
+      "Sed libero. In hac habitasse platea dictumst. Morbi nec nunc condimentum.",
   },
-  {
-    id: 5,
-    text: "Lorem ipsum #5",
-    description: "Fermentum ante et vulputate volutpat.",
-  },
+  // Add more items as needed
 ];
+
+const variants = {
+  enter: (direction: number) => ({
+    x: direction > 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+  },
+  exit: (direction: number) => ({
+    x: direction < 0 ? 1000 : -1000,
+    opacity: 0,
+  }),
+};
 
 const Carousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [direction, setDirection] = useState(0);
 
   const nextSlide = () => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % carouselData.length);
+    setDirection(1);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % items.length);
   };
 
-  const prevSlide = () => {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + carouselData.length) % carouselData.length
-    );
-  };
+  const visibleItems = [
+    items[(currentIndex + items.length - 1) % items.length],
+    items[currentIndex % items.length],
+    items[(currentIndex + 1) % items.length],
+  ];
 
   return (
-    <div className="relative w-full h-72 md:h-96 overflow-hidden flex justify-center items-center">
-      <button
-        onClick={prevSlide}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-gray-800 text-white px-4 py-2"
-      >
-        Prev
-      </button>
-      <button
+    <div className="relative w-full overflow-hidden mr-20 animate-fadeIn">
+      <h3 className="text-white text-end mr-32 text-6xl mb-12">
+        {" "}
+        DONEC NEC JUSTO
+      </h3>
+      <div className="flex">
+        <AnimatePresence initial={false} custom={direction}>
+          {visibleItems.map((item, index) => (
+            <motion.div
+              key={item.id}
+              custom={direction}
+              variants={variants}
+              initial="enter"
+              animate="center"
+              // exit="exit"
+              transition={{
+                x: { type: "spring", stiffness: 500, damping: 30 },
+                opacity: { duration: 0.2 },
+              }}
+              className="md:1 lg:w-1/2 xl:w-1/3 flex-none carousel-item flex items-stretch"
+            >
+              <div className="flex flex-col justify-between p-4 bg-white opacity-60 text-black rounded-lg mx-2 custom-card">
+                <div className="px-2">
+                  <h2 className="text-xl font-bold">{item.title}</h2>
+                  <p>{item.description}</p>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+
+      <Button
+        variant="link"
+        className="absolute right-0 top-1/2 transform -translate-y-1/2 right-navigation-button"
         onClick={nextSlide}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-gray-800 text-white px-4 py-2"
       >
-        Next
-      </button>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        key={carouselData[currentIndex].id}
-        className="absolute w-full h-full flex justify-center items-center bg-gray-100"
-      >
-        <div className="text-center p-4">
-          <h4 className="text-2xl md:text-4xl">
-            {carouselData[currentIndex].text}
-          </h4>
-          <p className="text-lg md:text-xl">
-            {carouselData[currentIndex].description}
-          </p>
-        </div>
-      </motion.div>
+        <FaChevronRight className="text-white hover:text-blue-950 down-arrow" />
+      </Button>
     </div>
   );
 };

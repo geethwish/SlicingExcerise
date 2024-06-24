@@ -4,14 +4,14 @@ import Carousel from "./Carousel";
 
 const Slide2 = () => {
   return (
-    <div className="relative h-screen flex justify-center items-center overflow-hidden">
+    <div className="relative h-screen flex justify-center items-center overflow-hidden bg-black ">
       <div
         className="w-full h-full bg-cover bg-center"
-        style={{ backgroundImage: `url(/images/img-1920x1200.jpg)` }}
+        style={{ backgroundImage: `url(/assets/images/img-xl.jpg)` }}
       ></div>
-      <button className="absolute bottom-5 bg-blue-500 text-white py-2 px-4 rounded">
+      <div className="absolute h-screen top-0 p-2 right-0 bg-black z-10 w-[150px] text-gray-700 text-center hidden sm:block">
         DISCOVER MORE
-      </button>
+      </div>
       <Carousel />
     </div>
   );
