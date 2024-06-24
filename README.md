@@ -1,0 +1,2 @@
+# SlicingExcerise
+Assignment
