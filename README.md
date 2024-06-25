@@ -73,4 +73,4 @@ yarn start
 
 # demo Link
 
-[text](https://slicing-excerise.vercel.app/)
+[Demo Link](https://slicing-excerise.vercel.app/)
