@@ -176,3 +176,38 @@ video {
   right: -20px;
   z-index: 20;
 }
+
+.bg-image {
+  background-image: url("/assets/images/img-xl.jpg");
+}
+
+.slide2-wrapper {
+  justify-content: end;
+}
+
+@media (max-width: 767px) {
+  .bg-image {
+    background-image: url("/assets/images/mobile.jpg");
+  }
+
+  .slide2-wrapper {
+    justify-content: center;
+  }
+
+  .right-navigation-button {
+    right: -20px;
+    bottom: 75px !important;
+    z-index: 20;
+  }
+
+  .custom-card {
+    width: 600px;
+    max-width: 60%;
+  }
+}
+
+@media screen and (max-width: 1023px) and (min-width: 768px) {
+  .bg-image {
+    background-image: url("/assets/images/lap.jpg");
+  }
+}

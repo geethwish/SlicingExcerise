@@ -1,4 +1,3 @@
-// components/Slide1.tsx
 import React, { FC } from "react";
 import { Button } from "../ui/button";
 import { FaChevronDown } from "react-icons/fa";
